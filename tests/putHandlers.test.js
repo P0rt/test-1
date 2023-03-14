@@ -4,6 +4,7 @@ const config = require('../config');
 const requestBody = { "price": 175 }
 
 test('status should be 200', async () => {
+    const unusedVariable = 123;
     let actualStatus;
     try {
 		const response = await fetch(`${config.API_URL}/api/v1/products/7`, {
