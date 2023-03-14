@@ -20,7 +20,12 @@ test('the opening hour is earlier than the closing hour', async () => {
         console.error(error);
 	}
 	let data = await response.json();
-	const startWorkingHours = data[0]["workingHours"]["start"];
-	const endWorkingHours = data[0]["workingHours"]["end"];
-	expect(endWorkingHours).toBeGreaterThan(startWorkingHours)
+    const result = []
+	for (let i = 0; i < data.length; i++) {
+		const startWorkingHours = data[i]["workingHours"]["start"];
+		const endWorkingHours = data[i]["workingHours"]["end"];
+		// Store result of comparison into the 'result' variable
+		result.push(startWorkingHours < endWorkingHours)
+	}
+	expect(result).not.toContain(false)
 });

@@ -13,3 +13,17 @@ test('status should be 200', async () => {
 	}
     expect(actualStatus).toBe(200);
 });
+
+test('response should be ok', async () => {
+    const expectedResponse = { ok: true };
+    let actualResponse;
+    try {
+		const response = await fetch(`${config.API_URL}/api/v1/kits/788888`, {
+			method: 'DELETE',
+		});
+        actualResponse = await response.json();
+	} catch (error) {
+		console.error(error);
+	}
+    expect(actualResponse).toEqual(expectedResponse);
+});

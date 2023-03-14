@@ -5,11 +5,7 @@ const requestBody = {
     "products": [
         {
             "id": 5,
-            "quantity": 1
-        },
-        {
-            "id": 4,
-            "quantity": 5
+            "quantity": 100500
         }
     ]
 }
@@ -19,11 +15,9 @@ test('status should be 200', async () => {
     try {
 		const response = await fetch(`${config.API_URL}/api/v1/warehouses/check`, {
 			method: 'POST',
-			// Set headers
 			headers: {
 			'Content-Type': 'application/json'
 			},
-			// Set request body and convert the data object into a JSON string
 			body: JSON.stringify(requestBody)
 		});
         actualStatus = response.status;
@@ -31,4 +25,27 @@ test('status should be 200', async () => {
 		console.error(error);
 	}
     expect(actualStatus).toBe(200);
+});
+
+
+test('status should be 200', async () => {
+    const actualResult = [];
+    try {
+		const response = await fetch(`${config.API_URL}/api/v1/warehouses/check`, {
+			method: 'POST',
+			headers: {
+			'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(requestBody)
+		});
+        const data = await response.json();
+        for (let shop in data) {
+            for(let item in data[shop]) {
+                actualResult.push(data[shop][item])
+            }
+        }
+	} catch (error) {
+		console.error(error);
+	}
+    expect(actualResult).not.toContain(true);
 });
